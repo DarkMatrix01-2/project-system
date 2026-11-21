@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · StackZen</title>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <nav class="nav">
+    <a class="logo" href="index.html">StackZen</a>
+    <a class="nav-link" href="index.html" data-page="home">Dashboard</a>
+    <a class="nav-link" href="pages/tasks.html" data-page="tasks">Tasks</a>
+    <a class="nav-link" href="pages/rooms.html" data-page="rooms">Study rooms</a>
+    <a class="nav-link" href="pages/resources.html" data-page="resources">Resources</a>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle light or dark mode">◐</button>
+  </nav>
+
+  <header class="hero">
+    <h1>Study together. Ship on time.</h1>
+    <p>Tasks, study rooms and learning tools for IT students, all in one place.</p>
+    <a class="btn" href="pages/tasks.html">Open my tasks</a>
+  </header>
+
+  <main>
+    <h2>Task overview</h2>
+    <div class="card-grid">
+      <div class="card stat-card" data-status="todo">
+        <span class="stat-number" id="count-todo">0</span>
+        <span class="stat-label">To do</span>
+      </div>
+      <div class="card stat-card" data-status="doing">
+        <span class="stat-number" id="count-doing">0</span>
+        <span class="stat-label">In progress</span>
+      </div>
+      <div class="card stat-card" data-status="done">
+        <span class="stat-number" id="count-done">0</span>
+        <span class="stat-label">Done</span>
+      </div>
+      <div class="card stat-card" data-status="overdue">
+        <span class="stat-number" id="count-overdue">0</span>
+        <span class="stat-label">Overdue</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong>Overall progress</strong>
+      <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+  </main>
+
+  
+
+  <script src="js/storage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/tasks.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

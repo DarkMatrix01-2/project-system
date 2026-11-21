@@ -1,0 +1,310 @@
+/* ==========================================================
+   StackZen styles
+   1. Theme variables  2. Base  3. Navigation  4. Hero
+   5. Layout & cards   6. Buttons & forms  7. Tasks  8. Chat
+   9. Responsive
+   ========================================================== */
+
+/* ---------- 1. Theme variables ---------- */
+/* Light theme is the default set; dark overrides it below. */
+:root {
+  --font: "K2D", system-ui, sans-serif;
+  --bg: #F5F6FB;
+  --surface: #FFFFFF;
+  --text: #1E2235;
+  --muted: #5D637C;
+  --border: #E3E6F0;
+  --primary: #4F4FC7;
+  --on-primary: #FFFFFF;
+  --accent: #0F766E;
+  --cta: #F5C335;
+  --on-cta: #14141F;
+  --nav-bg: #14162A;
+  --hero-bg: linear-gradient(180deg, #1A1AA8, #0F1220);
+
+  /* Task status colors (same in both themes) */
+  --todo: #64748B;
+  --doing: #38BDF8;
+  --done: #22C55E;
+  --overdue: #EF4444;
+}
+
+[data-theme="dark"] {
+  --bg: #0F1220;
+  --surface: #181C2F;
+  --text: #E6E8F2;
+  --muted: #9AA1BD;
+  --border: #2A2F47;
+  --primary: #8B8CF0;
+  --on-primary: #0F1220;
+  --accent: #2DD4BF;
+}
+
+/* Any element with data-status gets the matching color. */
+[data-status="todo"]    { --status-color: var(--todo); }
+[data-status="doing"]   { --status-color: var(--doing); }
+[data-status="done"]    { --status-color: var(--done); }
+[data-status="overdue"] { --status-color: var(--overdue); }
+
+/* ---------- 2. Base ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font: 16px/1.6 var(--font);
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3 {
+  font-family: var(--font);
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+a { color: var(--accent); }
+
+:focus-visible {
+  outline: 3px solid var(--cta);
+  outline-offset: 2px;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 5%;
+}
+
+/* ---------- 3. Navigation ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.9rem 5%;
+  background: var(--nav-bg);
+}
+
+.logo {
+  margin-right: auto;
+  font: 800 1.2rem var(--font);
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.nav-link {
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: #CFD3EA;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #FFFFFF;
+  border-bottom-color: var(--cta);
+}
+
+/* ---------- 4. Hero ---------- */
+.hero {
+  padding: 5rem 5% 4.5rem;
+  text-align: center;
+  color: #FFFFFF;
+  background: var(--hero-bg);
+}
+
+.hero h1 {
+  max-width: 14ch;
+  margin: 0 auto 1rem;
+  font-size: clamp(2.2rem, 7vw, 4.2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero p {
+  max-width: 46ch;
+  margin: 0 auto 2rem;
+  color: #DFE2FF;
+}
+
+/* ---------- 5. Layout & cards ---------- */
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.card {
+  padding: 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.stat-card { border-top: 4px solid var(--status-color); }
+
+.stat-number {
+  display: block;
+  font: 800 2.4rem var(--font);
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.progress {
+  height: 8px;
+  margin-top: 0.6rem;
+  overflow: hidden;
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+}
+
+.note {
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+}
+
+/* ---------- 6. Buttons & forms ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  font: 700 0.9rem var(--font);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--on-cta);
+  background: var(--cta);
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  padding: 0.6rem 1.1rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: 6px;
+}
+
+.icon-btn {
+  padding: 0.3rem 0.6rem;
+  color: inherit;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.nav .icon-btn { color: #FFFFFF; border-color: #3A3F5C; }
+.icon-btn.danger { color: var(--overdue); }
+
+button,
+input,
+select {
+  font-family: inherit;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.grow { flex: 1; min-width: 160px; }
+
+.error {
+  min-height: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--overdue);
+}
+
+/* ---------- 7. Tasks ---------- */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--status-color);
+  border-radius: 8px;
+}
+
+.task-title { flex: 1; font-weight: 700; }
+.task[data-status="done"] .task-title { color: var(--muted); text-decoration: line-through; }
+.task-due { color: var(--muted); font-size: 0.85rem; }
+.empty { padding: 1rem 0; color: var(--muted); }
+
+/* ---------- 8. Study rooms chat ---------- */
+.chat {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1rem;
+}
+
+.room-list { padding: 0; list-style: none; }
+.room-list li { padding: 0.5rem 0.7rem; border-radius: 6px; cursor: pointer; }
+.room-list li.active { color: var(--on-primary); background: var(--primary); }
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 300px;
+  margin-bottom: 0.8rem;
+  overflow-y: auto;
+}
+
+.message {
+  align-self: flex-end;
+  max-width: 75%;
+  padding: 0.5rem 0.8rem;
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: 8px;
+}
+
+/* ---------- 9. Responsive ---------- */
+@media (max-width: 640px) {
+  .nav { flex-wrap: wrap; gap: 0.8rem; }
+  .logo { width: 100%; }
+  .chat { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .progress-fill { transition: width 0.6s; }
+}

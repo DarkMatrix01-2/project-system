@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tasks · StackZen</title>
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="tasks">
+  <nav class="nav">
+    <a class="logo" href="../index.html">StackZen</a>
+    <a class="nav-link" href="../index.html" data-page="home">Dashboard</a>
+    <a class="nav-link" href="tasks.html" data-page="tasks">Tasks</a>
+    <a class="nav-link" href="rooms.html" data-page="rooms">Study rooms</a>
+    <a class="nav-link" href="resources.html" data-page="resources">Resources</a>
+    <button class="icon-btn" id="theme-toggle" aria-label="Toggle light or dark mode">◐</button>
+  </nav>
+
+  <main>
+    <h2>Task tracker</h2>
+
+    <form class="form-row" id="task-form" novalidate>
+      <input class="grow" id="task-title" placeholder="Task title" aria-label="Task title">
+      <input id="task-due" type="date" aria-label="Due date">
+      <button class="btn btn-secondary">Add task</button>
+    </form>
+    <p class="error" id="task-error" role="alert"></p>
+
+    <div class="form-row">
+      <input class="grow" type="search" id="task-search" placeholder="Search tasks" aria-label="Search tasks">
+      <select id="task-filter" aria-label="Filter by status">
+        <option value="all">All</option>
+        <option value="todo">To do</option>
+        <option value="doing">In progress</option>
+        <option value="done">Done</option>
+        <option value="overdue">Overdue</option>
+      </select>
+    </div>
+
+    <div id="task-list"></div>
+  </main>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/tasks.js"></script>
+  <script src="../js/tasks_page.js"></script>
+</body>
+</html>

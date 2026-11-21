@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StackZen — Login</title>
+
+
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body data-view="login">
+  <main class="stage">
+    <section class="card" aria-live="polite">
+
+      <!-- LOGIN -->
+      <form id="login-view" class="view" novalidate>
+        <h1 class="title">Welcome to <span class="brand">StackZen</span></h1>
+        <p class="subtitle">We hope you brought snacks (and coffee)</p>
+
+        <div class="field">
+          <label for="login-email">EMAIL</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label for="login-password">PASSWORD</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+
+        <p class="error" id="login-error" role="alert" hidden>
+          <svg class="error-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="7.3" y="4" width="1.4" height="5" rx=".7" fill="currentColor"/>
+            <circle cx="8" cy="11.3" r=".9" fill="currentColor"/>
+          </svg>
+          <span id="login-error-text">Account does not exist or wrong account details entered!</span>
+        </p>
+
+        <button type="submit" class="btn">Login</button>
+        <button type="button" class="link" data-go="register">Make an account</button>
+      </form>
+
+      <!-- REGISTER -->
+      <form id="register-view" class="view" novalidate hidden>
+        <h1 class="title">Welcome to <span class="brand">StackZen</span></h1>
+        <p class="subtitle">We hope you brought snacks (and coffee)</p>
+
+        <div class="field">
+          <label for="reg-username">USERNAME</label>
+          <input id="reg-username" name="username" type="text" autocomplete="username" required>
+        </div>
+
+        <div class="field">
+          <label for="reg-email">EMAIL</label>
+          <input id="reg-email" name="email" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label for="reg-password">PASSWORD</label>
+          <input id="reg-password" name="password" type="password" autocomplete="new-password" required>
+        </div>
+
+        <p class="error" id="reg-error" role="alert" hidden>
+          <svg class="error-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+            <rect x="7.3" y="4" width="1.4" height="5" rx=".7" fill="currentColor"/>
+            <circle cx="8" cy="11.3" r=".9" fill="currentColor"/>
+          </svg>
+          <span id="reg-error-text">Username or Email already exists!</span>
+        </p>
+
+        <button type="submit" class="btn">Continue</button>
+        <button type="button" class="link" data-go="login">I already have an account!</button>
+      </form>
+
+      <!-- SUCCESS -->
+      <div id="success-view" class="view view--success" hidden>
+        <p class="brand brand--center">StackZen</p>
+
+        <div class="success-body">
+          <span class="badge">LOGIN SUCCESSFUL</span>
+          <h1 class="success-title">You’re in!</h1>
+          <p class="success-text">
+            You’re signed in to StackZen.<br>
+            Coffee ready? Let’s get started.
+          </p>
+        </div>
+
+        <button type="button" class="btn" id="continue-btn">Continue to StackZen</button>
+        <p class="switch">Not you? <button type="button" class="link link--inline" id="switch-btn">Switch account</button></p>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="../js/login.js"></script>
+</body>
+</html>
