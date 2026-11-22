@@ -1,22 +1,23 @@
 /* ---------- Tokens (sampled from the Figma screens, adjust if needed) ---------- */
 :root {
-  --bg-page: #ffffff;               /* placeholder until backgrounds are added */
+  --bg-page: #0b1030;               /* shows only if an image fails to load */
 
-  --card-top: #4a63e7;
-  --card-bottom: #2d3a9c;
+  --card-top: #ffffff;
+  --card-bottom: #e6e6e6;
 
-  --lime: #c2ff8c;
-  --lime-dark: #7d9f52;             /* end of the button gradient */
-  --ink: #1a1f5c;                   /* dark text on lime */
+  --accent: #3a4bc4;                /* brand blue: logo, buttons, links */
+  --accent-dark: #2d3aa0;           /* button hover */
 
-  --text: #ffffff;
-  --text-muted: #a9b4f0;
+  --text: #1e1e1e;
+  --text-muted: #444444;
 
   --input-bg: #fff8f8;
-  --input-border: #8e96d6;
-  --danger: #e53935;
+  --input-border: #d2d2d2;
+  --danger: #e02a1f;
 
-  --radius-card: 12px;
+  --badge-bg: #8fd3ff;
+
+  --radius-card: 14px;
   --font: "K2D", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -54,10 +55,10 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
 .card {
   width: 100%;
   max-width: 580px;
-  padding: 44px 56px 48px;
+  padding: 44px 64px 48px;
   border-radius: var(--radius-card);
   background: linear-gradient(180deg, var(--card-top) 0%, var(--card-bottom) 100%);
-  box-shadow: 0 18px 50px rgba(20, 24, 90, 0.35);
+  box-shadow: 0 18px 50px rgba(0, 0, 20, 0.35);
 }
 
 .view[hidden] { display: none; }
@@ -71,7 +72,7 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
   letter-spacing: 0.01em;
 }
 
-.brand { color: var(--lime); }
+.brand { color: var(--accent); }
 
 .subtitle {
   margin: 4px 0 28px;
@@ -92,21 +93,22 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
 
 .field input {
   width: 100%;
-  height: 28px;
-  padding: 0 10px;
+  height: 30px;
+  padding: 0 12px;
   font: inherit;
   font-size: 14px;
-  color: var(--ink);
+  color: var(--text);
   background: var(--input-bg);
   border: 2px solid var(--input-border);
-  border-radius: 2px;
+  border-radius: 6px;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.12);
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .field input:focus-visible {
-  border-color: var(--lime);
-  box-shadow: 0 0 0 3px rgba(194, 255, 140, 0.35);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(58, 75, 196, 0.25);
 }
 
 .field input[aria-invalid="true"] {
@@ -120,6 +122,7 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
   gap: 8px;
   margin: 4px 0 12px;
   font-size: 12px;
+  color: var(--danger);
 }
 
 .error[hidden] { display: none; }
@@ -134,25 +137,30 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
 .btn {
   display: block;
   width: 100%;
-  height: 30px;
+  height: 38px;
   margin-top: 8px;
   font: inherit;
   font-size: 17px;
   font-weight: 500;
-  color: var(--ink);
-  background: var(--lime);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--accent);
   border: 0;
-  border-radius: 2px;
+  border-radius: 999px;
   cursor: pointer;
   transition: background 0.2s, filter 0.2s;
 }
 
-.btn:hover {
-  background: linear-gradient(90deg, var(--lime) 0%, var(--lime-dark) 100%);
+.btn--plain {
+  letter-spacing: 0;
+  text-transform: none;
 }
 
+.btn:hover { background: var(--accent-dark); }
+
 .btn:focus-visible {
-  outline: 3px solid #ffffff;
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -167,7 +175,7 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
   padding: 0;
   font: inherit;
   font-size: 11px;
-  color: var(--lime);
+  color: var(--accent);
   background: none;
   border: 0;
   cursor: pointer;
@@ -195,8 +203,8 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--ink);
-  background: var(--lime);
+  color: var(--text);
+  background: var(--badge-bg);
   border-radius: 999px;
 }
 
@@ -221,8 +229,8 @@ body[data-view="success"]  { background-image: url("../assets/images/signed_in.j
 @media (max-width: 520px) {
   .card { padding: 32px 24px 36px; }
   .title { font-size: 24px; }
-  .field input { height: 36px; }
-  .btn { height: 38px; }
+  .field input { height: 38px; }
+  .btn { height: 42px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
