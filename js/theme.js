@@ -1,24 +1,23 @@
-/* Dark/light mode toggle and active nav link. Loaded on every page. */
-
-const THEME_KEY = "sz_theme";
+// Theme: dark (default) and light. CSS tokens for both live at the top of style.css.
+const THEME_KEY = "stackzen.theme";
 
 function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  saveData(THEME_KEY, theme);
+  document.documentElement.setAttribute("data-theme", theme);
+  const icon = document.getElementById("theme-icon");
+  const btn = document.getElementById("theme-toggle");
+  if (icon) icon.textContent = theme === "dark" ? "dark_mode" : "light_mode"; // icon shows current mode
+  if (btn) btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
 }
 
-function toggleTheme() {
-  const current = document.documentElement.dataset.theme;
-  applyTheme(current === "dark" ? "light" : "dark");
+function toggleLightMode() {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(next);
+  try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
 }
 
-function highlightActiveNav() {
-  const currentPage = document.body.dataset.page;
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    link.classList.toggle("active", link.dataset.page === currentPage);
-  });
-}
-
-document.documentElement.dataset.theme = loadData(THEME_KEY, "dark");
-document.querySelector("#theme-toggle").addEventListener("click", toggleTheme);
-highlightActiveNav();
+(function initTheme() {
+  let saved = "dark";
+  try { saved = localStorage.getItem(THEME_KEY) || "dark"; } catch (e) {}
+  applyTheme(saved === "light" ? "light" : "dark");
+  document.getElementById("theme-toggle")?.addEventListener("click", toggleLightMode);
+})();

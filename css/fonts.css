@@ -23,4 +23,7 @@
   font-weight: 800;
   font-display: swap;
 }
-
+@font-face { font-family: "K2D"; font-weight: 400; src: url("../fonts/K2D-Regular.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "K2D"; font-weight: 500; src: url("../fonts/K2D-Medium.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "K2D"; font-weight: 700; src: url("../fonts/K2D-Bold.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "K2D"; font-weight: 800; src: url("../fonts/K2D-ExtraBold.ttf") format("truetype"); font-display: swap; }

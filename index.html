@@ -4,57 +4,84 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard · StackZen</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="home">
-  <nav class="nav">
-    <a class="logo" href="index.html">StackZen</a>
-    <a class="nav-link" href="index.html" data-page="home">Dashboard</a>
-    <a class="nav-link" href="pages/tasks.html" data-page="tasks">Tasks</a>
-    <a class="nav-link" href="pages/rooms.html" data-page="rooms">Study rooms</a>
-    <a class="nav-link" href="pages/resources.html" data-page="resources">Resources</a>
-    <button class="icon-btn" id="theme-toggle" aria-label="Toggle light or dark mode">◐</button>
-  </nav>
 
-  <header class="hero">
-    <h1>Study together. Ship on time.</h1>
-    <p>Tasks, study rooms and learning tools for IT students, all in one place.</p>
-    <a class="btn" href="pages/tasks.html">Open my tasks</a>
-  </header>
+  <!-- ===== SHELL (copy this block + the logout dialog to every page) ===== -->
+  <aside class="sidebar" id="sidebar" aria-label="Main menu">
+    <button class="tray-item" id="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+      <span class="material-icons-round">menu</span>
+    </button>
+    <nav class="side-nav">
+      <a class="tray-item" href="index.html" data-page="home"><span class="material-icons-round">home</span><span class="label">Home</span></a>
+      <a class="tray-item" href="pages/settings.html" data-page="settings"><span class="material-icons-round">settings</span><span class="label">Settings</span></a>
+      <a class="tray-item" href="pages/rooms.html" data-page="rooms"><span class="material-icons-round">chat</span><span class="label">Chatroom</span></a>
+      <a class="tray-item" href="pages/tasks.html" data-page="tasks"><span class="material-icons-round">task_alt</span><span class="label">To do</span></a>
+      <a class="tray-item" href="pages/calendar.html" data-page="calendar"><span class="material-icons-round">calendar_month</span><span class="label">Calendar</span></a>
+    </nav>
+  </aside>
 
-  <main>
-    <h2>Task overview</h2>
-    <div class="card-grid">
-      <div class="card stat-card" data-status="todo">
-        <span class="stat-number" id="count-todo">0</span>
-        <span class="stat-label">To do</span>
+  <div class="content">
+    <header class="topbar">
+      <p class="welcome">Welcome to <span class="brand">StackZen</span>, <span id="username">User</span></p>
+      <button class="round-btn" id="theme-toggle" aria-label="Toggle light or dark mode">
+        <span class="material-icons-round" id="theme-icon">dark_mode</span>
+      </button>
+      <div class="profile">
+        <button class="avatar-btn" id="profile-toggle" aria-haspopup="menu" aria-expanded="false" aria-label="Account">
+          <span class="material-icons-round">account_box</span>
+        </button>
+        <div class="profile-menu" id="profile-menu" role="menu">
+          <div class="profile-head">
+            <span class="material-icons-round big">account_box</span>
+            <strong id="profile-name">Username</strong>
+          </div>
+          <hr>
+          <a class="tray-item" role="menuitem" href="pages/account.html" data-page="account">Account details</a>
+          <a class="tray-item" role="menuitem" href="pages/login.html?add=1" data-page="add-account">Add another account</a>
+          <button class="tray-item" role="menuitem" id="logout-open">Log out</button>
+        </div>
       </div>
-      <div class="card stat-card" data-status="doing">
-        <span class="stat-number" id="count-doing">0</span>
-        <span class="stat-label">In progress</span>
-      </div>
-      <div class="card stat-card" data-status="done">
-        <span class="stat-number" id="count-done">0</span>
-        <span class="stat-label">Done</span>
-      </div>
-      <div class="card stat-card" data-status="overdue">
-        <span class="stat-number" id="count-overdue">0</span>
-        <span class="stat-label">Overdue</span>
-      </div>
-    </div>
+    </header>
 
-    <div class="card">
-      <strong>Overall progress</strong>
-      <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
-    </div>
-  </main>
+    <main>
+      <section class="panel">
+        <h2>Task overview</h2>
+        <div class="card-grid">
+          <div class="stat-card" data-status="todo"><span class="stat-number" id="count-todo">0</span><span class="stat-label">To do</span></div>
+          <div class="stat-card" data-status="doing"><span class="stat-number" id="count-doing">0</span><span class="stat-label">In progress</span></div>
+          <div class="stat-card" data-status="done"><span class="stat-number" id="count-done">0</span><span class="stat-label">Done</span></div>
+          <div class="stat-card" data-status="overdue"><span class="stat-number" id="count-overdue">0</span><span class="stat-label">Overdue</span></div>
+        </div>
+        <div class="progress-box">
+          <strong>Overall progress:</strong>
+          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+      </section>
 
-  
+      <!-- grows automatically when there are many tasks -->
+      <section class="panel">
+        <h2>Upcoming tasks in 7 days</h2>
+        <ul class="upcoming" id="upcoming"></ul>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="logout" id="logout-dialog" aria-labelledby="logout-title">
+    <h2 id="logout-title">Are you sure you want to logout?</h2>
+    <p>We're going to miss you!</p>
+    <button class="dlg-btn" id="logout-yes">Yes</button>
+    <button class="dlg-btn primary" id="logout-no" autofocus>No</button>
+  </dialog>
+  <!-- ===== END SHELL ===== -->
 
   <script src="js/storage.js"></script>
   <script src="js/theme.js"></script>
   <script src="js/tasks.js"></script>
+  <script src="js/ui.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 </html>
