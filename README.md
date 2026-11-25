@@ -8,7 +8,12 @@ A website designed as an all in one chatroom with your IT buddies with built in 
 to collab, brainstorm and start new ideas inside one website!
 
 Minor features include:
-- still deliberating
+- Account creation (locally stored)
+- Dark mode and light mode
+- CRUD feature for tasks
+- Calendar API
+- Priority levels (for tasks)
+- User profile management
 
 
 Designed using Figma, coded the HTML by myself and let Claude do most of the CSS and JavaScript
