@@ -137,6 +137,21 @@ regForm.addEventListener("submit", async (e) => {
     return;
   }
 
+  if (username.length < 3 || username.length > 14) {
+    setError(regForm, regError, regErrorText, "Username must be 3 to 14 characters long.", [regUsername]);
+    return;
+  }
+
+  if (!email.toLowerCase().endsWith("@gmail.com")) {
+    setError(regForm, regError, regErrorText, "Email must be a valid @gmail.com address.", [regEmail]);
+    return;
+  }
+
+  if (password.length < 8) {
+    setError(regForm, regError, regErrorText, "Password must be at least 8 characters long.", [regPassword]);
+    return;
+  }
+
   submit.disabled = true;
   const result = await registerRequest(username, email, password);
   submit.disabled = false;

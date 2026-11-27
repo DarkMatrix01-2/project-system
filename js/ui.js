@@ -1,7 +1,8 @@
 // Shared shell behaviour: sidebar, profile popup, logout dialog.
 // Include on every page that uses the shell.
 (() => {
-  const LOGIN_PAGE = "pages/login.html"; // adjust (use "login.html" from inside /pages)
+  // Works whether the current page lives at the site root (index.html) or inside /pages/.
+  const LOGIN_PAGE = location.pathname.includes("/pages/") ? "login.html" : "pages/login.html";
   const $ = (id) => document.getElementById(id);
   const body = document.body;
 
@@ -42,7 +43,21 @@
   dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeDialog(); }); // Esc key
   $("logout-no").addEventListener("click", () => closeDialog());
   $("logout-yes").addEventListener("click", () => {
-    try { sessionStorage.clear(); localStorage.removeItem("stackzen.session"); } catch (e) {}
+    // "stackzen_session" is the key login.js writes to on sign in — must match here or the old
+    // name would stick around after logout.
+    try { sessionStorage.clear(); localStorage.removeItem("stackzen_session"); } catch (e) {}
     closeDialog(() => { window.location.href = LOGIN_PAGE; }); // back to the login form
   });
+
+  // --- Show the logged-in username in the top bar and profile menu ---
+  (function hydrateSessionName() {
+    let session = null;
+    try { session = JSON.parse(localStorage.getItem("stackzen_session")); } catch (e) {}
+    const username = session && session.username;
+    if (!username) return; // no session yet: leave the placeholder text in the HTML
+    const nameInTopbar = $("username");
+    const nameInProfile = $("profile-name");
+    if (nameInTopbar) nameInTopbar.textContent = username;
+    if (nameInProfile) nameInProfile.textContent = username;
+  })();
 })();

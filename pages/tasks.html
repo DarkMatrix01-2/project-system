@@ -4,46 +4,154 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tasks · StackZen</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
   <link rel="stylesheet" href="../css/fonts.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body data-page="tasks">
-  <nav class="nav">
-    <a class="logo" href="../index.html">StackZen</a>
-    <a class="nav-link" href="../index.html" data-page="home">Dashboard</a>
-    <a class="nav-link" href="tasks.html" data-page="tasks">Tasks</a>
-    <a class="nav-link" href="rooms.html" data-page="rooms">Study rooms</a>
-    <a class="nav-link" href="resources.html" data-page="resources">Resources</a>
-    <button class="icon-btn" id="theme-toggle" aria-label="Toggle light or dark mode">◐</button>
-  </nav>
 
-  <main>
-    <h2>Task tracker</h2>
+  <!-- ===== SHELL (same block as index.html) ===== -->
+  <aside class="sidebar" id="sidebar" aria-label="Main menu">
+    <button class="tray-item" id="menu-toggle" aria-expanded="false" aria-label="Toggle menu">
+      <span class="material-icons-round">menu</span>
+    </button>
+    <nav class="side-nav">
+      <a class="tray-item" href="../index.html" data-page="home"><span class="material-icons-round">home</span><span class="label">Home</span></a>
+      <a class="tray-item" href="settings.html" data-page="settings"><span class="material-icons-round">settings</span><span class="label">Settings</span></a>
+      <a class="tray-item" href="rooms.html" data-page="rooms"><span class="material-icons-round">chat</span><span class="label">Chatroom</span></a>
+      <a class="tray-item" href="tasks.html" data-page="tasks"><span class="material-icons-round">task_alt</span><span class="label">To do</span></a>
+      <a class="tray-item" href="calendar.html" data-page="calendar"><span class="material-icons-round">calendar_month</span><span class="label">Calendar</span></a>
+    </nav>
+  </aside>
 
-    <form class="form-row" id="task-form" novalidate>
-      <input class="grow" id="task-title" placeholder="Task title" aria-label="Task title">
-      <input id="task-due" type="date" aria-label="Due date">
-      <button class="btn btn-secondary">Add task</button>
+  <div class="content">
+    <header class="topbar">
+      <p class="welcome">Welcome to <span class="brand">StackZen</span>, <span id="username">User</span></p>
+      <button class="round-btn" id="theme-toggle" aria-label="Toggle light or dark mode">
+        <span class="material-icons-round" id="theme-icon">dark_mode</span>
+      </button>
+      <div class="profile">
+        <button class="avatar-btn" id="profile-toggle" aria-haspopup="menu" aria-expanded="false" aria-label="Account">
+          <span class="material-icons-round">account_box</span>
+        </button>
+        <div class="profile-menu" id="profile-menu" role="menu">
+          <div class="profile-head">
+            <span class="material-icons-round big">account_box</span>
+            <strong id="profile-name">Username</strong>
+          </div>
+          <hr>
+          <a class="tray-item" role="menuitem" href="account.html" data-page="account">Account details</a>
+          <a class="tray-item" role="menuitem" href="login.html?add=1" data-page="add-account">Add another account</a>
+          <button class="tray-item" role="menuitem" id="logout-open">Log out</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <h2>Task tracker</h2>
+
+      <div class="tasks-layout">
+        <aside class="list-sidebar panel">
+          <button class="add-list-btn" id="add-list-btn" type="button">
+            Add new list <span class="material-icons-round">add</span>
+          </button>
+          <ul class="list-nav" id="list-nav"></ul>
+        </aside>
+
+        <section class="board-area">
+          <header class="board-header panel" id="board-header" hidden>
+            <h2 id="board-title">List name</h2>
+            <p class="board-desc" id="board-desc"></p>
+          </header>
+
+          <div class="board" id="board" hidden></div>
+
+          <p class="board-empty" id="board-empty">Add a list to start organizing your tasks.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add / edit list -->
+  <dialog class="modal" id="list-dialog" aria-labelledby="list-dialog-title">
+    <h2 id="list-dialog-title">List name</h2>
+    <form id="list-form" novalidate>
+      <div class="field">
+        <input id="list-name-input" maxlength="30" placeholder="Enter name for this list" aria-label="List name">
+        <p class="form-error" id="list-name-error"></p>
+      </div>
+      <div class="field">
+        <textarea id="list-desc-input" maxlength="200" placeholder="Description" aria-label="Description"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="submit" class="dlg-btn" id="list-save-btn">Add</button>
+        <button type="button" class="dlg-btn primary" id="list-cancel-btn">Cancel</button>
+      </div>
     </form>
-    <p class="error" id="task-error" role="alert"></p>
+  </dialog>
 
-    <div class="form-row">
-      <input class="grow" type="search" id="task-search" placeholder="Search tasks" aria-label="Search tasks">
-      <select id="task-filter" aria-label="Filter by status">
-        <option value="all">All</option>
-        <option value="todo">To do</option>
-        <option value="doing">In progress</option>
-        <option value="done">Done</option>
-        <option value="overdue">Overdue</option>
-      </select>
+  <!-- Add / edit task -->
+  <dialog class="modal" id="task-dialog" aria-labelledby="task-dialog-title">
+    <h2 id="task-dialog-title">To do</h2>
+    <form id="task-form" novalidate>
+      <div class="field">
+        <input id="task-name-input" maxlength="16" placeholder="Enter name for this task" aria-label="Task name">
+        <p class="form-error" id="task-name-error"></p>
+      </div>
+      <div class="field">
+        <textarea id="task-desc-input" maxlength="200" placeholder="Description" aria-label="Description"></textarea>
+      </div>
+      <div class="modal-row">
+        <label class="date-field">
+          <span class="material-icons-round">calendar_month</span>
+          <input type="date" id="task-due-input" aria-label="Due date">
+        </label>
+        <select id="task-status-input" aria-label="Status" hidden>
+          <option value="todo">To do</option>
+          <option value="doing">In progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <p class="form-error" id="task-due-error"></p>
+      <div class="modal-actions">
+        <div class="modal-row">
+          <button type="button" class="dlg-btn danger" id="task-delete-btn" hidden>Delete</button>
+          <button type="submit" class="dlg-btn" id="task-save-btn">Add</button>
+        </div>
+        <button type="button" class="dlg-btn primary" id="task-cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- View task (read only) -->
+  <dialog class="modal view-modal" id="task-view-dialog" aria-labelledby="task-view-title">
+    <h2 id="task-view-title">Task name</h2>
+    <p id="task-view-desc"></p>
+    <p class="view-due" id="task-view-due"></p>
+    <div class="modal-actions">
+      <button type="button" class="dlg-btn primary" id="task-view-close">Close</button>
     </div>
+  </dialog>
 
-    <div id="task-list"></div>
-  </main>
+  <!-- Shared delete confirmation -->
+  <dialog class="logout" id="confirm-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Are you sure you want to delete "X"?</h2>
+    <button class="dlg-btn" id="confirm-yes">Yes</button>
+    <button class="dlg-btn primary" id="confirm-no" autofocus>No</button>
+  </dialog>
+
+  <dialog class="logout" id="logout-dialog" aria-labelledby="logout-title">
+    <h2 id="logout-title">Are you sure you want to logout?</h2>
+    <p>We're going to miss you!</p>
+    <button class="dlg-btn" id="logout-yes">Yes</button>
+    <button class="dlg-btn primary" id="logout-no" autofocus>No</button>
+  </dialog>
+  <!-- ===== END SHELL ===== -->
 
   <script src="../js/storage.js"></script>
   <script src="../js/theme.js"></script>
   <script src="../js/tasks.js"></script>
+  <script src="../js/ui.js"></script>
   <script src="../js/tasks_page.js"></script>
 </body>
 </html>

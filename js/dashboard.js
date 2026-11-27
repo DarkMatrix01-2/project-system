@@ -1,10 +1,5 @@
 // Dashboard: counts, progress bar, upcoming list.
-// ADAPTER: edit getTasks() to return your real tasks from storage.js / tasks.js.
-// Expected shape: { title, status: "todo" | "doing" | "done", due: "YYYY-MM-DD" }
-function getTasks() {
-  try { return JSON.parse(localStorage.getItem("stackzen.tasks")) || []; } catch (e) { return []; }
-}
-
+// getTasks() comes from tasks.js (shared storage key, shared across pages).
 function renderDashboard() {
   const tasks = getTasks();
   const today = new Date(); today.setHours(0, 0, 0, 0);

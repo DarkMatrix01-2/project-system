@@ -48,17 +48,17 @@
 
         <div class="field">
           <label for="reg-username">USERNAME</label>
-          <input id="reg-username" name="username" type="text" autocomplete="username" required>
+          <input id="reg-username" name="username" type="text" autocomplete="username" minlength="3" maxlength="14" required>
         </div>
 
         <div class="field">
           <label for="reg-email">EMAIL</label>
-          <input id="reg-email" name="email" type="email" autocomplete="email" required>
+          <input id="reg-email" name="email" type="email" autocomplete="email" placeholder="you@gmail.com" required>
         </div>
 
         <div class="field">
           <label for="reg-password">PASSWORD</label>
-          <input id="reg-password" name="password" type="password" autocomplete="new-password" required>
+          <input id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
         </div>
 
         <p class="error" id="reg-error" role="alert" hidden>

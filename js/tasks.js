@@ -1,7 +1,9 @@
-/* Task data layer, shared by the Dashboard and Tasks pages.
-   A task looks like: { title: "Read chapter 3", due: "2026-12-01", status: "todo" }
+/* Data layer, shared by the Dashboard and Tasks pages.
+   A list looks like: { id, name, description }
+   A task looks like: { id, listId, title, description, due, status, starred }
    Stored statuses: todo, doing, done. "overdue" is worked out, never stored. */
 
+const LISTS_KEY = "sz_lists";
 const TASKS_KEY = "sz_tasks";
 
 const STATUS_LABELS = {
@@ -11,7 +13,17 @@ const STATUS_LABELS = {
   overdue: "Overdue",
 };
 
-const NEXT_STATUS = { todo: "doing", doing: "done", done: "todo" };
+function makeId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+function getLists() {
+  return loadData(LISTS_KEY, []);
+}
+
+function saveLists(lists) {
+  saveData(LISTS_KEY, lists);
+}
 
 function getTasks() {
   return loadData(TASKS_KEY, []);
@@ -24,6 +36,13 @@ function saveTasks(tasks) {
 /* Today as YYYY-MM-DD in the user's own time zone. */
 function todayISO() {
   return new Date().toLocaleDateString("en-CA");
+}
+
+/* dd/mm/yyyy, for display only — storage always keeps the ISO string. */
+function formatDueDate(iso) {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-");
+  return `${d}/${m}/${y}`;
 }
 
 /* The status to display: unfinished tasks past their due date are overdue. */
